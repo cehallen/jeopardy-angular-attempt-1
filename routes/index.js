@@ -7,13 +7,14 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(file);
 
 
+
 // /* GET home page. */
 // router.get('/', function(req, res) {
 //   res.render('index', { title: 'Express' });
 // });
 
-router.get('/quizme', function(req, res) {
-  var query = req.body.query;
+router.post('/quizme', function(req, res) {
+  var query = req.body.keyword;
   var sqlQuery = "SELECT * FROM clue WHERE text LIKE '%" + query + "'% ORDER BY RANDOM() LIMIT 1";
   var qAndA = null;
   db.serialize(function() {
