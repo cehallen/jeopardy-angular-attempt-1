@@ -9,5 +9,4 @@ jeopardyControllers.controller('QuizMeCtrl', ['$scope', '$http',
       error(function(data) {
         $scope.qAndA = data || "Request failed";
       })
-    });
   }]);
