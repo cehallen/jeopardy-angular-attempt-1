@@ -13,10 +13,12 @@ var db = new sqlite3.Database(file);
 //   res.render('index', { title: 'Express' });
 // });
 
+
+// POST to respond with question/answer unit from user given keyword
 router.post('/quizme', function(req, res) {
   var query = req.body.keyword;
-  var sqlQuery = "SELECT * FROM clue WHERE text LIKE '%" + query + "'% ORDER BY RANDOM() LIMIT 1";
-  var qAndA = null;
+  var sqlQuery = "SELECT * FROM clue WHERE text LIKE '%" + query + "%' ORDER BY RANDOM() LIMIT 1";
+  var qAndA = 'nothing to see here';
   db.serialize(function() {
     db.each(sqlQuery, function(err, row) {
       if (err) {
@@ -26,8 +28,9 @@ router.post('/quizme', function(req, res) {
       }
     });
   });
-  db.close();
+  // db.close();
   res.send(qAndA);
+  // res.send(query);
 });
 
 
