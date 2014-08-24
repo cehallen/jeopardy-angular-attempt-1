@@ -7,7 +7,7 @@ jeopardyApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: 'partials/quizme.html',
+        templateUrl: 'views/quizme.html',
         controller: 'QuizMeCtrl'
       }).
       otherwise({
