@@ -4,9 +4,14 @@
 
 <form>
   Enter a keyword: <input ng-model="keyword">
-  <button ng-click="getQAndA()">Mr. Button</button>
+  <button ng-click="getQAndA()">Get a question</button>
 </form>
 
 <div ng-show="qAndA">
-  {{qAndA}}
+  {{qAndA.text}}
 </div>
+
+<form>
+  Your answer: <input ng-model='proposedAnswer'>
+  <button ng-click="getAnswer()">Check your answer</button>
+</form>

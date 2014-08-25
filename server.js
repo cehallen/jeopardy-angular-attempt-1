@@ -36,28 +36,50 @@ app.use(express.static(path.join(__dirname, 'public'))); //this is super importa
 // app.use('/users', users);
 
 // POST to respond with question/answer unit from user given keyword
-app.post('/quizme', function(req, res) {
+app.post('/api/quizme', function(req, res) {
   var query = req.body.keyword; // some disconnect here.  nope, it's working.
   var sqlQuery = "SELECT * FROM clue WHERE text LIKE '%" + query + "%' ORDER BY RANDOM() LIMIT 1";
-  var qAndA = 'nothing to see here';
-  db.serialize(function() {
-    db.each(sqlQuery, function(err, row) {
-      if (err) {
-        console.log(err);
-      } else {
-        // console.log(row);
-        qAndA = row;
-        // console.log(qAndA); // this shows the sql response
-      }
-    });
+
+
+  async.waterfall([
+    function(callback) {
+      var qAndA = 'nothing to see here';
+      db.serialize(function() {
+        db.each(sqlQuery, function(err, row) {
+          if (err) {
+            console.log(err);
+          } else {
+            // console.log(row);
+            qAndA = row;
+            // console.log("first\n\n" + JSON.stringify(qAndA));
+            res.send(qAndA);
+          }
+        });
+      });
+      // console.log(qAndA);
+      callback(null, qAndA);
+    }
+  ], function(err, qAndA) {
+    if (err) {
+      res.send(err);
+    } else {
+      // console.log("second\n\n")
+      // console.log(qAndA);
+      // res.send(qAndA);
+    };
   });
-  // db.close();
-  console.log(query);
-  console.log(sqlQuery);
-  console.log(qAndA);  // this does NOT show the sql response.  is this a timing, async problem..
-  res.send(qAndA);
-  // res.send(query);
+  // db.close();  // what if many users are accessing the same db?
+  // console.log(query);
+  // console.log(sqlQuery);
+  // console.log(qAndA);  // this does NOT show the sql response.  is this a timing, async problem..
+  // res.send(qAndA);
 });
+
+// POST to get the user's proposed answer, and return it against the correct answer
+// app.post('/api/getanswer', function(req, res) {
+//   var proposedAnswer = req.body.proposedAnswer;
+//   xz
+// })
 
 // // from showtrakr, to shunt random urls to home.  not tested.  doesn't the .otherwise in app.js take care of this?
 // app.get('*', function(req, res) {
