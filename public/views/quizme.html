@@ -15,3 +15,11 @@
   Your answer: <input ng-model='proposedAnswer'>
   <button ng-click="getAnswer()">Check your answer</button>
 </form>
+
+<p ng-show="showAnswer">
+  The answer:  <span ng-bind-html="qAndA.answer | safehtml"></span>
+</p>
+
+<p ng-show="showAnswer">
+  Da answu:  {{qAndA.answer}}
+</p>

@@ -3,8 +3,9 @@ var jeopardyControllers = angular.module('jeopardyControllers', []);
 jeopardyControllers.controller('QuizMeCtrl', ['$scope', '$http',
   function($scope, $http) {
     $scope.qAndA = null;
-
+    $scope.showAnswer;
     $scope.getQAndA = function() {
+      $scope.showAnswer = false;
       $http.post('/api/quizme', {"keyword": $scope.keyword}).
         success(function(data) {
           $scope.qAndA = data;
@@ -15,11 +16,11 @@ jeopardyControllers.controller('QuizMeCtrl', ['$scope', '$http',
     };
 
     $scope.getAnswer = function() {
+      $scope.judgement = 'Incorrect, sorry'
       if ($scope.qAndA.answer.toLowerCase() === $scope.proposedAnswer.toLowerCase()) {
         $scope.judgement = 'Correct!';
-      } else {
-        $scope.judgement = 'Nope';
       }
-      // To do: sort out your front end logic to show the answer on click of mrs. button, and
+      $scope.showAnswer = true;
+      // To do: sort out your front end logic to show the answer on click
     };
   }]);
