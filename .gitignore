@@ -2,4 +2,3 @@ logs/*
 !.gitkeep
 node_modules/
 tmp
-/public/bower_components/
