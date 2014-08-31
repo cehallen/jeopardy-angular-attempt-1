@@ -1,6 +1,5 @@
 var jeopardyApp = angular.module('jeopardyApp', [
   'ngRoute',
-  // 'ngSanitize',
   'jeopardyControllers',
   'jeopardyFilters'
 ]);

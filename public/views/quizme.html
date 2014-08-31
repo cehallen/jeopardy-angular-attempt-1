@@ -7,8 +7,13 @@
   <button ng-click="getQAndA()">Get a question</button>
 </form>
 
-<div ng-show="qAndA">
+<!-- this doesn't show & just shows &amp; fickin annoying so created a $sce filter.  use it for all returns on the db cos they have special chars throughout -->
+<!-- <div ng-show="qAndA">
   {{qAndA.text}}
+</div> -->
+
+<div ng-show="qAndA">
+  <span ng-bind-html="qAndA.text | safehtml"></span>
 </div>
 
 <form>

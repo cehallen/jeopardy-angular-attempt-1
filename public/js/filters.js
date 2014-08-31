@@ -10,10 +10,3 @@ angular.module('jeopardyFilters', []).filter('safehtml', function($sce) {
   // // or:
   // angular.module('jeopardyFilters').filter....
   // // without the dependencies declaration is a retrieval not creation
-
-//   .filter('html',function($sce){
-//     return function(input){
-//         return $sce.trustAsHtml(input);
-//     }
-// })
-//
