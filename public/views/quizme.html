@@ -1,11 +1,12 @@
-<p>
-  hello!!! anybody home?
-</p>
+
 
 <form>
   Enter a keyword: <input ng-model="keyword">
-  <button ng-click="getQAndA()">Get a question</button>
+  <button ng-click="getQAndA()">Get this question</button>
+  <button ng-click="getQAndA()">Try random question</button>
 </form>
+
+
 
 <!-- this doesn't show & just shows &amp; fickin annoying so created a $sce filter.  use it for all returns on the db cos they have special chars throughout -->
 <!-- <div ng-show="qAndA">
@@ -13,18 +14,31 @@
 </div> -->
 
 <div ng-show="qAndA">
-  <span ng-bind-html="qAndA.text | safehtml"></span>
+  Category: &nbsp; <span ng-bind-html="qAndA.category | safehtml"></span>
+</div>
+<div ng-show="qAndA">
+  Clue: &nbsp; <span ng-bind-html="qAndA.text | safehtml"></span>
 </div>
 
 <form>
   Your answer: <input ng-model='proposedAnswer'>
-  <button ng-click="getAnswer()">Check your answer</button>
+  <button ng-click="getAnswer()">Check answer</button>
 </form>
 
-<p ng-show="showAnswer">
+<div ng-show="showAnswer">
   The answer:  <span ng-bind-html="qAndA.answer | safehtml"></span>
-</p>
+</div>
 
-<p ng-show="showAnswer">
-  Da answu:  {{qAndA.answer}}
-</p>
+<div ng-show="showAnswer">
+  <button type="button" ng-click="right()">Correct</button>
+  <button type="button" ng-click="right()">Close enough</button>
+  <button type="button" ng-click="wrong()">Wrong</button>
+</div>
+
+<div ng-show="hasScore">
+  {{score}}
+</div>
+
+<!-- <p ng-show="showAnswer">
+  The answer without safehtml filter:  {{qAndA.answer}}
+</p> -->

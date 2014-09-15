@@ -4,7 +4,12 @@ jeopardyControllers.controller('QuizMeCtrl', ['$scope', '$http',
   function($scope, $http) {
     $scope.qAndA = null;
     $scope.showAnswer;
+    $scope.keyword = '';
+    $scope.hasScore = false;
+    $scope.score = 0;
+
     $scope.getQAndA = function() {
+      $scope.proposedAnswer = null;
       $scope.showAnswer = false;
       $http.post('/api/quizme', {"keyword": $scope.keyword}).
         success(function(data) {
@@ -16,11 +21,16 @@ jeopardyControllers.controller('QuizMeCtrl', ['$scope', '$http',
     };
 
     $scope.getAnswer = function() {
-      $scope.judgement = 'Incorrect, sorry'
-      if ($scope.qAndA.answer.toLowerCase() === $scope.proposedAnswer.toLowerCase()) {
-        $scope.judgement = 'Correct!';
-      }
       $scope.showAnswer = true;
-      // To do: sort out your front end logic to show the answer on click
+    };
+
+    $scope.right = function() {
+      $scope.hasScore = true;
+      $scope.score++;
+    };
+
+    $scope.wrong = function() {
+      $scope.hasScore = true;
+      $scope.score--;
     };
   }]);

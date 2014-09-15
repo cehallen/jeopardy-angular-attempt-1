@@ -32,14 +32,28 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); //this is super important
 
-// app.use('/', routes);
-// app.use('/users', users);
+// NOT NEEDED I THINK.  IF IT BREAKS PUT IT BACK BUT THIS WAS JUST AN EXP FROM SOME WEBSITE
+// app.use(function(req, res) {
+//   // Use res.sendfile, as it streams instead of reading the file into memory.
+//   res.sendfile('index.html');
+// });
+
+
+
+// GET to prompt for agegate.html before passing over to frontend app
+// app.get('/', function(req, res) {
+//   if (!req.cookies.over21) {
+//     res.sendfile('./agegate.html');
+//     return
+//   } else {
+//     res.sendfile('index.html');
+//   }
+// });
 
 // POST to respond with question/answer unit from user given keyword
 app.post('/api/quizme', function(req, res) {
   var query = req.body.keyword; // some disconnect here.  nope, it's working.
   var sqlQuery = "SELECT * FROM clue WHERE text LIKE '%" + query + "%' ORDER BY RANDOM() LIMIT 1";
-
 
   async.waterfall([
     function(callback) {
@@ -52,6 +66,22 @@ app.post('/api/quizme', function(req, res) {
             // console.log(row);
             qAndA = row;
             // console.log("first\n\n" + JSON.stringify(qAndA));
+            // weird that you have to put this res.send here, not in the final callback.. doesn't work there
+            // console.log(qAndA);
+            var sqlCategoryQuery = "SELECT * FROM category WHERE id = " + qAndA.category;
+            var category = null;
+            db.serialize(function() {
+              db.each(sqlCategoryQuery, function(err, row) {
+                if(err) {
+                  console.log(err);
+                } else {
+                  category = row;
+                  qAndA.catName = category.name;
+                  console.log(qAndA);
+                  // console.log(typeof qAndA.catName);
+                }
+              })
+            })
             res.send(qAndA);
           }
         });
@@ -75,11 +105,11 @@ app.post('/api/quizme', function(req, res) {
   // res.send(qAndA);
 });
 
-// POST to get the user's proposed answer, and return it against the correct answer
-// app.post('/api/getanswer', function(req, res) {
-//   var proposedAnswer = req.body.proposedAnswer;
-//   xz
-// })
+// experiment inspired by http://stackoverflow.com/questions/23616485/expressjs-order-of-app-router-and-express-static
+app.use(function(req, res) {
+  // Use res.sendfile, as it streams instead of reading the file into memory.
+  res.sendfile('index.html');
+});
 
 // // from showtrakr, to shunt random urls to home.  not tested.  doesn't the .otherwise in app.js take care of this?
 // app.get('*', function(req, res) {
