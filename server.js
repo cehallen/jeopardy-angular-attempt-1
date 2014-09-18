@@ -76,7 +76,8 @@ app.post('/api/quizme', function(req, res) {
                   console.log(err);
                 } else {
                   category = row;
-                  qAndA.catName = category.name;
+                  // console.log(category.name.toLowerCase());
+                  qAndA.catName = category.name.toLowerCase().; // capitalize first letter w css
                   console.log(qAndA);
                   // console.log(typeof qAndA.catName);
                 }
