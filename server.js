@@ -52,58 +52,71 @@ app.use(express.static(path.join(__dirname, 'public'))); //this is super importa
 
 // POST to respond with question/answer unit from user given keyword
 app.post('/api/quizme', function(req, res) {
-  var query = req.body.keyword; // some disconnect here.  nope, it's working.
+  var query = req.body.keyword;
   var sqlQuery = "SELECT * FROM clue WHERE text LIKE '%" + query + "%' ORDER BY RANDOM() LIMIT 1";
 
   async.waterfall([
     function(callback) {
       var qAndA = 'nothing to see here';
+      callback(null, qAndA);
+    },
+    function(qAndA, callback) {
       db.serialize(function() {
         db.each(sqlQuery, function(err, row) {
           if (err) {
             console.log(err);
           } else {
-            // console.log(row);
             qAndA = row;
-            // console.log("first\n\n" + JSON.stringify(qAndA));
-            // weird that you have to put this res.send here, not in the final callback.. doesn't work there
-            // console.log(qAndA);
-            var sqlCategoryQuery = "SELECT * FROM category WHERE id = " + qAndA.category;
-            var category = null;
-            db.serialize(function() {
-              db.each(sqlCategoryQuery, function(err, row) {
-                if(err) {
-                  console.log(err);
-                } else {
-                  category = row;
-                  // console.log(category.name.toLowerCase());
-                  qAndA.catName = category.name.toLowerCase().; // capitalize first letter w css
-                  console.log(qAndA);
-                  // console.log(typeof qAndA.catName);
-                }
-              })
-            })
-            res.send(qAndA);
+            console.log(qAndA); // works √
+            callback(null, qAndA);
+
+            // var sqlCategoryQuery = "SELECT * FROM category WHERE id = " + qAndA.category;
+            // var category = null;
+            // db.serialize(function() {
+            //   db.each(sqlCategoryQuery, function(err, row) {
+            //     if(err) {
+            //       console.log(err);
+            //     } else {
+            //       category = row;
+            //       qAndA.catName = category.name.toLowerCase(); // capitalize first letter w css
+            //       console.log(qAndA);
+            //     }
+            //   });
+            //   // console.log(qAndA);
+            //   // res.send(qAndA);
+            // });
+            // res.send(qAndA);  // *****
           }
         });
       });
-      // console.log(qAndA);
-      callback(null, qAndA);
+      // callback(null, qAndA);
+    },
+    function(qAndA, callback){
+      console.log(qAndA);
+      var sqlCategoryQuery = "SELECT * FROM category WHERE id = " + qAndA.category;
+      var category = null;
+      db.serialize(function() {
+        db.each(sqlCategoryQuery, function(err, row) {
+          if (err) {
+            console.log(err);
+          } else {
+            category = row;
+            qAndA.catName = category.name.toLowerCase();
+            callback(null, qAndA);
+          }
+        });
+      });
+
+      // callback(null, qAndA);
     }
   ], function(err, qAndA) {
     if (err) {
       res.send(err);
     } else {
-      // console.log("second\n\n")
       // console.log(qAndA);
-      // res.send(qAndA);
-    };
+      res.send(qAndA);
+    }
   });
-  // db.close();  // what if many users are accessing the same db?
-  // console.log(query);
-  // console.log(sqlQuery);
-  // console.log(qAndA);  // this does NOT show the sql response.  is this a timing, async problem..
-  // res.send(qAndA);
 });
 
 // experiment inspired by http://stackoverflow.com/questions/23616485/expressjs-order-of-app-router-and-express-static

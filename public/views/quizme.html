@@ -14,7 +14,8 @@
 </div> -->
 
 <div ng-show="qAndA">
-  Category: &nbsp; <span ng-bind-html="qAndA.category | safehtml"></span>
+  <!-- Category: &nbsp; <span ng-bind-html="qAndA.category | safehtml"></span> -->
+  Category: &nbsp; <span>{{qAndA}}</span>
 </div>
 <div ng-show="qAndA">
   Clue: &nbsp; <span ng-bind-html="qAndA.text | safehtml"></span>
