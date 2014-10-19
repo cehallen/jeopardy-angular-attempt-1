@@ -2,21 +2,14 @@
 
 <form>
   Enter a keyword: <input ng-model="keyword">
-  <button ng-click="getQAndA()">Get this question</button>
+  <button ng-click="getQAndA()">Get question</button>
   <button ng-click="getQAndA()">Try random question</button>
 </form>
 
-
-
-<!-- this doesn't show & just shows &amp; fickin annoying so created a $sce filter.  use it for all returns on the db cos they have special chars throughout -->
-<!-- <div ng-show="qAndA">
-  {{qAndA.text}}
-</div> -->
-
 <div ng-show="qAndA">
-  <!-- Category: &nbsp; <span ng-bind-html="qAndA.category | safehtml"></span> -->
-  Category: &nbsp; <span>{{qAndA}}</span>
+  Category: &nbsp; <span ng-bind-html="qAndA.catName | safehtml"></span>
 </div>
+
 <div ng-show="qAndA">
   Clue: &nbsp; <span ng-bind-html="qAndA.text | safehtml"></span>
 </div>
@@ -39,7 +32,3 @@
 <div ng-show="hasScore">
   {{score}}
 </div>
-
-<!-- <p ng-show="showAnswer">
-  The answer without safehtml filter:  {{qAndA.answer}}
-</p> -->
