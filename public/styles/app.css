@@ -48,7 +48,7 @@ body {
   height: 180px;
 }
 .quiz-form-top {
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 input[type="text"], textarea {
   background-color : #D4D4CF;
