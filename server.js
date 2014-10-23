@@ -19,7 +19,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public'))); //this is super important
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 // POST to respond with question/answer unit from user given keyword
@@ -72,11 +72,6 @@ app.post('/api/quizme', function(req, res) {
   });
 });
 
-// experiment inspired by http://stackoverflow.com/questions/23616485/expressjs-order-of-app-router-and-express-static
-// app.use(function(req, res) {
-//   // Use res.sendfile, as it streams instead of reading the file into memory.
-//   res.sendfile('index.html');
-// });
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,38 @@
+body {
+  background-image: url('/img/George-peabody-library-slice5.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Lobster', cursive;
+}
+.container {
+  height: 100px;
+  width: 100%;
+  background: transparent;
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+}
+.section {
+  display: inline-block;
+}
+.title-box {
+  width: 19%;
+  position: relative;
+  top: -20px;
+  height: 100px;
+  background: #211600;
+  color: white;
+}
+.quiz-box {
+  background: rgba(33,22,0,.7);
+  color: white;
+  height: 100px;
+  width: 80%;
+  position: relative;
+  left: -3px;
+}

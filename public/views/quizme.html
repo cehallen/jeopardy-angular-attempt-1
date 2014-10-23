@@ -1,34 +1,36 @@
-
-
-<form>
-  Enter a keyword: <input ng-model="keyword">
-  <button ng-click="getQAndA()">Get question</button>
-  <button ng-click="getQAndA()">Try random question</button>
-</form>
-
-<div ng-show="qAndA">
-  Category: &nbsp; <span ng-bind-html="qAndA.catName | safehtml"></span>
+<div class="title-box section">
+  hello
 </div>
+<div class="quiz-box section">
+  <form>
+    Enter a keyword: <input ng-model="keyword">
+    <button ng-click="getQAndA()">Get question</button>
+  </form>
 
-<div ng-show="qAndA">
-  Clue: &nbsp; <span ng-bind-html="qAndA.text | safehtml"></span>
-</div>
+  <div ng-show="qAndA">
+    Category: &nbsp; <span ng-bind-html="qAndA.catName | safehtml"></span>
+  </div>
 
-<form>
-  Your answer: <input ng-model='proposedAnswer'>
-  <button ng-click="getAnswer()">Check answer</button>
-</form>
+  <div ng-show="qAndA">
+    Clue: &nbsp; <span ng-bind-html="qAndA.text | safehtml"></span>
+  </div>
 
-<div ng-show="showAnswer">
-  The answer:  <span ng-bind-html="qAndA.answer | safehtml"></span>
-</div>
+  <form>
+    Your answer: <input ng-model='proposedAnswer'>
+    <button ng-click="getAnswer()">Check answer</button>
+  </form>
 
-<div ng-show="showAnswer">
-  <button type="button" ng-click="right()">Correct</button>
-  <button type="button" ng-click="right()">Close enough</button>
-  <button type="button" ng-click="wrong()">Wrong</button>
-</div>
+  <div ng-show="showAnswer">
+    The answer:  <span ng-bind-html="qAndA.answer | safehtml"></span>
+  </div>
 
-<div ng-show="hasScore">
-  {{score}}
+  <div ng-show="showAnswer">
+    <button type="button" ng-click="right()">Correct</button>
+    <button type="button" ng-click="right()">Close enough</button>
+    <button type="button" ng-click="wrong()">Wrong</button>
+  </div>
+
+  <div ng-show="hasScore">
+    {{score}}
+  </div>
 </div>
