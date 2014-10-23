@@ -10,11 +10,11 @@ body {
   font-family: 'Lobster', cursive;
 }
 .container {
-  height: 100px;
+  height: 180px;
   width: 100%;
   background: transparent;
   position: absolute;
-  bottom: 40px;
+  bottom: 30px;
   left: 0;
 }
 .section {
@@ -22,17 +22,44 @@ body {
 }
 .title-box {
   width: 19%;
-  position: relative;
-  top: -20px;
-  height: 100px;
+  height: 180px;
   background: #211600;
   color: white;
+  vertical-align: top;
+}
+.title-box div {
+  position: relative;
+  top: 17px;
+  text-align: right;
+  margin-right: 15px;
+  font-size: 1.3em;
 }
 .quiz-box {
   background: rgba(33,22,0,.7);
-  color: white;
-  height: 100px;
+  color: #D2C6B9;
+  height: 180px;
   width: 80%;
   position: relative;
   left: -3px;
+}
+.quiz-form {
+  margin-left: 15px;
+  margin-top: 20px;
+  height: 180px;
+}
+.quiz-form-top {
+  margin-bottom: 2px;
+}
+input[type="text"], textarea {
+  background-color : #D4D4CF;
+  color: #211600;
+  font-family: sans-serif, 'Lobster', cursive;
+  border: 1px #D4D4CF solid;
+  padding-left: 4px;
+}
+button {
+  background-color: #D4D4CF;
+  border: none;
+  font-family: sans-serif;
+  color: #211600;
 }
